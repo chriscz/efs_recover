@@ -49,25 +49,20 @@ Instructions
 >
 > dd if=/dev/block/mmcblk0p3 of=/storage/sdcard1/efs_broken.img
 >
-
 2. Place partition backup on your computer
 3. Format your EFS partition using a terminal emulator from recovery (Again, I used AROMA)
 
 >
 > mke2fs /dev/block/mmcblk0p3
 >
-
 4. Restart the phone, you should now be able to boot into your phone.
    Wait till you reach the homescreen then continue with the instructions
-
-5. Boot back into recovery, then backup your EFS partion again
+5. Boot back into recovery, then backup your EFS partion again.
+This backup provides us with a working default which we shall use later.
 
 >
 > dd if=/dev/block/mmcblk0p3 of=/storage/sdcard1/efs_default.img
 >
-
-This backup provides us with a working default which we shall use later.
-
 6. Copy over the EFS dumps to your computer 
 
 6. Next, execute the following on your computer
@@ -87,7 +82,6 @@ use. Replace X with the number you choose
 >
 > dd if=/extSdcard/updated_image_X of=/dev/block/mmcblk0p3 of=/extSdcard/efs_broken.img
 >
-
 10. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 9 and 10 with a
 different image.
 
