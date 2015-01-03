@@ -17,9 +17,10 @@ anything to it (for example, when it's been formatted through
 Corrupted EFS partition
 --------------------------------
 You know that the EFS partition has been corrupted when,
-    - You are stuck and cannot boot into your ROM  (mine was stuck at the bootloader `Samsung i9300` when I had CyanogenMod installed)
-    - If you're on stock, you are stuck at the Samsung ROM logo with a flashing blue indicator light 
-    - and you should see the following error when you boot into the stock Samsung recovery:
+
+- You are stuck and cannot boot into your ROM  (mine was stuck at the bootloader `Samsung i9300` when I had CyanogenMod installed)
+- If you're on stock, you are stuck at the Samsung ROM logo with a flashing blue indicator light 
+- and you should see the following error when you boot into the stock Samsung recovery:
 
 >
 > E:failed to mount /efs (Invalid argument)
