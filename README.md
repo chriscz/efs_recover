@@ -68,7 +68,7 @@ generated. Where X is the number of the image.
 9. Place the updated_image_x.img files on your sdcard
 10. Reboot your phone into recovery and enter the terminal emulator (AROMA). Decide on an updated image to
 use. Replace X with the number you choose
-> dd if=/extSdcard/updated_image_X of=/dev/block/mmcblk0p3 of=/extSdcard/efs_broken.img
+> dd if=/extSdcard/updated_image_X of=/dev/block/mmcblk0p3
 
 11. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 11 and 12 with a
 different image.
