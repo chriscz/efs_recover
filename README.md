@@ -68,7 +68,7 @@ generated. Where X is the number of the image.
 use. Replace X with the number you choose
 > dd if=/extSdcard/updated_image_X of=/dev/block/mmcblk0p3 of=/extSdcard/efs_broken.img
 
-11. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 10 and 11 with a
+11. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 11 and 12 with a
 different image.
 
 References 
