@@ -46,23 +46,28 @@ Instructions
 0. Install a custom recovery, I used CWM (You can skip this step if you have already done so)
 1. Make a full efs backup from a terminal emulator (I used [http://forum.xda-developers.com/showthread.php?t=1646108](AROMA)), 
 > dd if=/dev/block/mmcblk0p3 of=/storage/sdcard1/efs_broken.img
+
 2. Place partition backup on your computer
 3. Format your EFS partition using a terminal emulator from recovery (Again, I used AROMA)
 > mke2fs /dev/block/mmcblk0p3
+
 4. Restart the phone, you should now be able to boot into your phone.
    Wait till you reach the homescreen then continue with the instructions
 5. Boot back into recovery, then backup your EFS partion again.
 This backup provides us with a working default which we shall use later.
 > dd if=/dev/block/mmcblk0p3 of=/storage/sdcard1/efs_default.img
+
 6. Copy over the EFS dumps to your computer 
 7. Next, execute the following on your computer
 > sudo python efs_recover.py efs_broken.img efs_default.img
+
 8. If the execution was successful you should see updated_image_X.img files have been
 generated. Where X is the number of the image.
 9. Place the updated_image_x.img files on your sdcard
 10. Reboot your phone into recovery and enter the terminal emulator (AROMA). Decide on an updated image to
 use. Replace X with the number you choose
 > dd if=/extSdcard/updated_image_X of=/dev/block/mmcblk0p3 of=/extSdcard/efs_broken.img
+
 11. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 10 and 11 with a
 different image.
 
