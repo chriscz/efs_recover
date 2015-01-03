@@ -13,6 +13,7 @@ anything to it (for example, when it's been formatted through
 [Swapper for Root](https://play.google.com/store/apps/details?id=org.azasoft.free.swapper&hl=en) and thus `corrupted`.
 - You have a corrupted the EFS partition through some other means
 - Possibly when the phone gets stuck during boot 
+
 Corrupted EFS partition
 --------------------------------
 You know that the EFS partition has been corrupted when,
