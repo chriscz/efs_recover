@@ -10,7 +10,7 @@ When will it work?
 The script should work in the following cases
 - You have accidentally formatted your EFS partition incorrectly, but haven't written
 anything to it (for example, when it's been formatted through 
-[https://play.google.com/store/apps/details?id=org.azasoft.free.swapper&hl=en](Swapper for Root)) and thus `corrupted`.
+[Swapper for Root](https://play.google.com/store/apps/details?id=org.azasoft.free.swapper&hl=en) and thus `corrupted`.
 - You have a corrupted the EFS partition through some other means
 - Possibly when the phone gets stuck during boot 
 Corrupted EFS partition
@@ -44,7 +44,7 @@ Script Reqirements
 Instructions
 =============
 0. Install a custom recovery, I used CWM (You can skip this step if you have already done so)
-1. Make a full efs backup from a terminal emulator (I used [http://forum.xda-developers.com/showthread.php?t=1646108](AROMA)), 
+1. Make a full efs backup from a terminal emulator (I used [AROMA](http://forum.xda-developers.com/showthread.php?t=1646108), 
 > dd if=/dev/block/mmcblk0p3 of=/storage/sdcard1/efs_broken.img
 
 2. Place partition backup on your computer
@@ -74,8 +74,7 @@ different image.
 References 
 ==========
 I drew from the knowledge and effort of others in this project. The major contribution was an XDA forum
-thread by *SlashV* [http://forum.xda-developers.com/galaxy-s3/help/successful-imei-repair-i9300-backup-t2544109](Successful IMEI repair on i9300 without backup.) 
+thread by **SlashV** [Successful IMEI repair on i9300 without backup.](http://forum.xda-developers.com/galaxy-s3/help/successful-imei-repair-i9300-backup-t2544109) 
 
-- [http://forum.xda-developers.com/galaxy-s3/general/ref-imei-efs-stuff-i9300-including-t2393289]([REF] IMEI / EFS - Know this stuff (i9300) - including "no network")
-- [https://github.com/ius/libsamsung-ipc](libsamsung-ipc Project for MD5 generation)
- 
+- [IMEI / EFS - Know this stuff i9300 - including "no network"](http://forum.xda-developers.com/galaxy-s3/general/ref-imei-efs-stuff-i9300-including-t2393289)
+- [libsamsung-ipc Project for MD5 generation](https://github.com/ius/libsamsung-ipc) 
