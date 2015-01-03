@@ -22,6 +22,9 @@ def debug(*args):
     if DEBUG:
         print ' '.join([repr(i) for i in args])
 
+def info(*args):
+    print ' '.join([repr(i) for i in args])
+
 def generate_md5sum(data, salt="Samsung_Android_RIL"):
     checksum = md5.new(data)
     checksum.update(salt)
@@ -53,12 +56,14 @@ class NvData(object):
         with open(filename, 'w+b') as f:
             f.write(self.data)
             f.flush()
+        os.chmod(filename, 0775)
         
     def save_checksum(self, path, name='nv_data.bin.md5'):
         filename = os.path.join(path, name)
         with open(filename, 'w') as f:
             f.write(self.checksum)
             f.flush()
+        os.chmod(filename, 0775)
 
 def recursive_remove(folder):
     for the_file in os.listdir(folder):
@@ -135,8 +140,9 @@ def update_default_image(nv_data, directory):
 
     md5ext = '.md5'
     for i in to_remove:
-        remove_file(i)
-        remove_file(i + md5ext)
+        path = os.path.join(directory, i)
+        remove_file(path)
+        remove_file(path + md5ext)
 
     nv_data.save_data(directory)    
     nv_data.save_checksum(directory)
