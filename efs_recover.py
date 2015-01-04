@@ -7,6 +7,8 @@ import subprocess
 import shutil
 import errno
 import time
+import argparse
+import tempfile
 
 NV_DATA_BYTES = 2048*1024
 START_BYTES = '32'
@@ -16,7 +18,7 @@ NAME_NV_DATA = 'nv_data.bin'
 NAME_CHECKSUM= 'nv_data.bin.md5'
 P_NV_HEADER = re.compile(r'\xcc{' + START_BYTES +r'}.{' + GAP_MODEM + r'}\x20{4}(?P<modem>.{53})', re.DOTALL)
 
-DEBUG = False
+DEBUG = True
 
 def debug(*args):
     if DEBUG:
@@ -111,7 +113,7 @@ def extract_nv_data(efs_dump):
         print "FOUND: ", count, "possible nv_data.bin"
     return extracted
 
-def mount_loop_device(image_filename, path):
+def mount_image(image_filename, path):
     loop = subprocess.check_output(['sudo', 'losetup', '-f']).strip()
     if subprocess.call(['sudo', 'losetup', loop, image_filename]) != 0:
         raise Exception("Failed to setup loop device")
@@ -122,10 +124,9 @@ def mount_loop_device(image_filename, path):
     
 def unmount_loop_device(loop_path):
     if subprocess.call(['sudo', 'umount', loop_path]) != 0:
-        raise Exception("Failed to unmount loop device")
-
+        debug("Failed to unmount loop device")
     if subprocess.call(['sudo', 'losetup', '--detach', loop_path]) != 0:
-        raise Exception("Failed to detach loop device")
+        debug("Failed to detach loop device")
 
 def remove_file(path):
     try :
@@ -156,21 +157,43 @@ def update_default_image(nv_data, directory):
     with open(os.path.join(directory, 'FactoryApp/factorymode'), 'w') as f:
         f.write('ON')
         f.flush()
+    # Need to wait for the writing to disk complete, 
+    # this shouldn't be more than 2 seconds on most systems 
     time.sleep(2)
 
-def main():
-    here = os.getcwd()
-    mount_path = os.path.join(here, 'loop_mount')
+def generate_efs_images(extracted_nv_data, default_image_path):
+    current_wd = os.getcwd()
+    mount_path = tempfile.mkdtemp()
     if not os.path.exists(mount_path):
         os.mkdir(mount_path)
-    extracted = extract_nv_data(sys.argv[1])
-    default_img = os.path.abspath(sys.argv[2])
 
-    for i, nv_data in enumerate(extracted):
-        image = os.path.join(here, 'updated_image_' + str(i) + '.img')
-        shutil.copy(default_img, image)
-        loop_path = mount_loop_device(image, mount_path)
-        update_default_image(nv_data, mount_path)
-        unmount_loop_device(loop_path)
+    for i, nv_data in enumerate(extracted_nv_data):
+        image = os.path.join(current_wd, 'recovered_efs_' + str(i) + '.img')
+        shutil.copy(default_image_path, image)
+        try:
+            device = mount_image(image, mount_path)
+            update_default_image(nv_data, mount_path)
+        except Exception as e:
+            info('Could not generate EFS image #' + str(i))
+        finally:
+            unmount_loop_device(device)
+
+def main():
+    parser = argparse.ArgumentParser(
+            description='Attempts to recover nv_data.bin from a '+
+                        'corrupted EFS partition dump.')
+    parser.add_argument('corrupted_image', 
+                        help='the corrupted EFS partition dump') 
+    parser.add_argument('--generate-efs', '-g',
+                        metavar='DEFAULT_EFS_IMAGE',
+                        help='generate an EFS partition dump given the default efs image',
+                        dest='default')
+    namespace = parser.parse_args()
+    recovered_img = os.path.abspath(namespace.corrupted_image)
+    extracted = extract_nv_data(recovered_img)
+    if namespace.default:
+        default_img = os.path.abspath(namespace.default)
+        generate_efs_images(extracted, default_img)
+    
 if __name__ == "__main__":
     main()
