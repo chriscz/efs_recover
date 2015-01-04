@@ -61,7 +61,7 @@ This backup provides us with a working default which we shall use later.
 
 6. Copy over the EFS dumps to your computer 
 7. Next, execute the following on your computer
-> sudo python efs_recover.py efs_broken.img efs_default.img
+> sudo python efs_recover.py efs_broken.img -g efs_default.img
 
 8. If the execution was successful you should see updated_image_X.img files have been
 generated. Where X is the number of the image.
@@ -72,6 +72,11 @@ use. Replace X with the number you choose
 
 11. Reboot your phone, go into `About` and see if your IMEI was restored, if not, repeat steps 11 and 12 with a
 different image.
+
+Script Help
+============
+To see help for the script, execute
+> python efs_recover.py -h
 
 References 
 ==========
