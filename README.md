@@ -1,6 +1,6 @@
 What is this tool?
 ==================
-A script that attempts to extract nv_data from a 
+A script that attempts to extract nv_data from an EFSv2
 partition image. 
 The discussion below is applicable to the i9300 intl. GSM. 
 However, it may be relevant to other devices as well.
